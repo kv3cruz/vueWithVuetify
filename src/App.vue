@@ -3,38 +3,40 @@
       <v-app-bar app color="primary" dark>
          <v-toolbar-title> Vuetify Dashboard </v-toolbar-title>
          <v-spacer></v-spacer>
-         <v-btn>Home</v-btn>
-         <v-btn>Login</v-btn>
-      </v-app-bar>
-      <v-content>
-         <v-card width="400" class="mx-auto mt-5">
-            <v-card-title>
-               <h1 class="display-1">Login</h1>
-            </v-card-title>
-            <v-card-text>
-               <v-form>
-                  <v-text-field
-                     label="Username"
-                     prepend-icon="mdi-account-circle"
-                  >
-                  </v-text-field>
-                  <v-text-field
-                     label="Password"
-                     prepend-icon="mdi-lock"
-                     :append-icon="!showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                     :type="showPassword ? 'text' : 'password'"
-                     @click:append="showPassword = !showPassword"
-                  ></v-text-field>
-               </v-form>
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-card-actions>
-               <v-btn color="success">Register</v-btn>
-               <v-spacer></v-spacer>
-               <v-btn color="info">Login</v-btn>
-            </v-card-actions>
-         </v-card>
-      </v-content>
+         <v-btn
+            v-for="link in links"
+            :key="`${link.label}-header-link`"
+            :to="link.url"
+            text
+            rounded
+            >{{ link.label }}</v-btn
+         ></v-app-bar
+      >
+      <v-main>
+         <router-view></router-view>
+      </v-main>
+      <v-footer color="primary lighten-1" padless>
+         <v-row justify="center" no-gutters>
+            <v-btn
+               v-for="link in links"
+               :key="`${link.label}-footer-link`"
+               color="white"
+               text
+               rounded
+               class="my-2"
+               :to="link.url"
+            >
+               {{ link.label }}
+            </v-btn>
+            <v-col
+               class="primary lighten-2 py-4 text-center white--text"
+               cols="12"
+            >
+               {{ new Date().getFullYear() }} —
+               <strong>Vuetify Dashboard</strong>
+            </v-col>
+         </v-row>
+      </v-footer>
    </v-app>
 </template>
 
@@ -43,7 +45,11 @@ export default {
    name: 'App',
    data() {
       return {
-         showPassword: false
+         links: [
+            { label: 'Home', url: '/' },
+            { label: 'Login', url: '/login' },
+            { label: 'Dashboard', url: '/dashboard' }
+         ]
       }
    }
 }
