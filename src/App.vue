@@ -10,8 +10,9 @@
             text
             rounded
             >{{ link.label }}</v-btn
-         ></v-app-bar
-      >
+         >
+         <v-btn text rounded @click="toogleTheme">Toggle Theme</v-btn>
+      </v-app-bar>
       <v-main>
          <router-view></router-view>
       </v-main>
@@ -28,6 +29,7 @@
             >
                {{ link.label }}
             </v-btn>
+
             <v-col
                class="primary lighten-2 py-4 text-center white--text"
                cols="12"
@@ -51,6 +53,12 @@ export default {
             { label: 'Dashboard', url: '/dashboard' },
             { label: 'Signup', url: '/signup' }
          ]
+      }
+   },
+   methods: {
+      toogleTheme() {
+         this.$vuetify.theme.themes.dark.anchor = '#41B883'
+         this.$vuetify.theme.dark = !this.$vuetify.theme.dark
       }
    }
 }
